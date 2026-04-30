@@ -1,0 +1,580 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="night"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://esm.sh/three@0.164.1"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <div class="brand">
+          <span class="brand-mark">V</span>
+          <div>
+            <strong>VitalTrack</strong>
+            <span>Healthy living OS</span>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item" data-tab="overview" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-dashboard" aria-hidden="true" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+            <span>Overview</span>
+          </button>
+          <button class="nav-item" data-tab="nutrition" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="utensils" aria-hidden="true" class="lucide lucide-utensils"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>
+            <span>Nutrition</span>
+          </button>
+          <button class="nav-item" data-tab="training" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="dumbbell" aria-hidden="true" class="lucide lucide-dumbbell"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"></path><path d="m2.5 21.5 1.4-1.4"></path><path d="m20.1 3.9 1.4-1.4"></path><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"></path><path d="m9.6 14.4 4.8-4.8"></path></svg>
+            <span>Training</span>
+          </button>
+          <button class="nav-item active" data-tab="biomarkers" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="watch" aria-hidden="true" class="lucide lucide-watch"><path d="M12 10v2.2l1.6 1"></path><path d="m16.13 7.66-.81-4.05a2 2 0 0 0-2-1.61h-2.68a2 2 0 0 0-2 1.61l-.78 4.05"></path><path d="m7.88 16.36.8 4a2 2 0 0 0 2 1.61h2.72a2 2 0 0 0 2-1.61l.81-4.05"></path><circle cx="12" cy="12" r="6"></circle></svg>
+            <span>Biomarkers</span>
+          </button>
+          <button class="nav-item" data-tab="coach" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" aria-hidden="true" class="lucide lucide-sparkles"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
+            <span>Weekly Coach</span>
+          </button>
+        </nav>
+
+        <section class="profile-panel" aria-label="Client profile">
+          <div class="panel-heading">
+            <span>Client Profile</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-round" aria-hidden="true" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+          </div>
+          <label>
+            Goal
+            <select id="goalSelect">
+              <option value="fat-loss">Fat loss</option>
+              <option value="muscle-gain">Muscle gain</option>
+              <option value="performance">Performance</option>
+              <option value="recomposition">Recomposition</option>
+            </select>
+          </label>
+          <div class="split-fields">
+            <label>
+              Weight
+              <input id="weightInput" min="30" max="250" step="0.1" type="number" value="82">
+            </label>
+            <label>
+              Height
+              <input id="heightInput" min="120" max="230" step="1" type="number" value="181">
+            </label>
+          </div>
+          <div class="metric-pill">
+            <span>BMI</span>
+            <strong id="bmiValue">25.0</strong>
+          </div>
+        </section>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Today</p>
+            <h1 id="pageTitle">Biomarkers</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button" id="themeToggle" title="Switch to day mode" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sun" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></button>
+            <button class="icon-button" id="resetDemo" title="Reset demo data" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="rotate-ccw" aria-hidden="true" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+            </button>
+            <button class="primary-action" id="simulateWeek" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-plus" aria-hidden="true" class="lucide lucide-calendar-plus"><path d="M16 19h6"></path><path d="M16 2v4"></path><path d="M19 16v6"></path><path d="M21 12.598V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5"></path><path d="M3 10h18"></path><path d="M8 2v4"></path></svg>
+              <span>Simulate Week</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="tab-panel" id="overview">
+          <div class="dashboard-grid">
+            <section class="summary-band span-2">
+              <div>
+                <p class="eyebrow">Readiness snapshot</p>
+                <h2>Your week is trending <span id="readinessLabel">steady</span>.</h2>
+                <p id="readinessCopy">Your plan is broadly on track. A small adjustment this week should move the trend.</p>
+              </div>
+              <div class="readiness-score">
+                <span id="readinessScore">77</span>
+                <small>score</small>
+              </div>
+            </section>
+
+            <article class="stat-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flame" aria-hidden="true" class="lucide lucide-flame"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg>
+              <span>Calories</span>
+              <strong id="calorieStat">2.180</strong>
+              <small id="calorieDelta">120 under target</small>
+            </article>
+            <article class="stat-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="beef" aria-hidden="true" class="lucide lucide-beef"><path d="M16.4 13.7A6.5 6.5 0 1 0 6.28 6.6c-1.1 3.13-.78 3.9-3.18 6.08A3 3 0 0 0 5 18c4 0 8.4-1.8 11.4-4.3"></path><path d="m18.5 6 2.19 4.5a6.48 6.48 0 0 1-2.29 7.2C15.4 20.2 11 22 7 22a3 3 0 0 1-2.68-1.66L2.4 16.5"></path><circle cx="12.5" cy="8.5" r="2.5"></circle></svg>
+              <span>Protein</span>
+              <strong id="proteinStat">177 g</strong>
+              <small>muscle support</small>
+            </article>
+            <article class="stat-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart-pulse" aria-hidden="true" class="lucide lucide-heart-pulse"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg>
+              <span>Resting HR</span>
+              <strong id="rhrStat">58 bpm</strong>
+              <small id="rhrDelta">-2 bpm</small>
+            </article>
+            <article class="stat-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="moon" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
+              <span>Sleep</span>
+              <strong id="sleepStat">7h 34m</strong>
+              <small>nightly average</small>
+            </article>
+
+            <section class="tracker-panel span-2">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Weekly balance</p>
+                  <h2>Progress by domain</h2>
+                </div>
+              </div>
+              <div class="progress-list" id="progressList"><div class="progress-row">
+        <span>Calories</span>
+        <div class="progress-track"><div class="progress-fill" style="width:95%;background:var(--green)"></div></div>
+        <strong>95%</strong>
+      </div><div class="progress-row">
+        <span>Protein</span>
+        <div class="progress-track"><div class="progress-fill" style="width:100%;background:var(--blue)"></div></div>
+        <strong>107%</strong>
+      </div><div class="progress-row">
+        <span>Fiber</span>
+        <div class="progress-track"><div class="progress-fill" style="width:100%;background:var(--amber)"></div></div>
+        <strong>103%</strong>
+      </div><div class="progress-row">
+        <span>Strength</span>
+        <div class="progress-track"><div class="progress-fill" style="width:67%;background:var(--coral)"></div></div>
+        <strong>67%</strong>
+      </div><div class="progress-row">
+        <span>Cardio minutes</span>
+        <div class="progress-track"><div class="progress-fill" style="width:23%;background:var(--violet)"></div></div>
+        <strong>23%</strong>
+      </div></div>
+            </section>
+
+            <section class="tracker-panel">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Next best action</p>
+                  <h2>Coach note</h2>
+                </div>
+              </div>
+              <div class="coach-note" id="overviewCoachNote"><strong>Add one Zone 2 cardio session</strong><p>115 more weekly minutes would better match the fat loss plan.</p></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="nutrition">
+          <div class="dashboard-grid">
+            <section class="tracker-panel span-2">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Food log</p>
+                  <h2>Calories, macros, and key micronutrients</h2>
+                </div>
+              </div>
+              <form class="entry-form" id="mealForm">
+                <input name="food" placeholder="Food or meal" required="" value="Greek yogurt bowl">
+                <input name="calories" min="0" placeholder="Calories" required="" type="number" value="420">
+                <input name="protein" min="0" placeholder="Protein g" required="" type="number" value="34">
+                <input name="carbs" min="0" placeholder="Carbs g" required="" type="number" value="48">
+                <input name="fat" min="0" placeholder="Fat g" required="" type="number" value="11">
+                <input name="fiber" min="0" placeholder="Fiber g" type="number" value="8">
+                <input name="iron" min="0" placeholder="Iron mg" step="0.1" type="number" value="1.4">
+                <input name="magnesium" min="0" placeholder="Magnesium mg" type="number" value="72">
+                <button type="submit">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" aria-hidden="true" class="lucide lucide-plus"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                  <span>Add</span>
+                </button>
+              </form>
+              <div class="macro-board">
+                <div class="macro-ring" style="--value: 95;">
+                  <span id="dailyCalories">2180</span>
+                  <small>kcal</small>
+                </div>
+                <div class="macro-bars" id="macroBars"><div>
+      <div class="bar-label"><strong>Protein</strong><span>177g / 165g</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--blue)"></div></div>
+    </div><div>
+      <div class="bar-label"><strong>Carbs</strong><span>224g / 230g</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:97%;background:var(--green)"></div></div>
+    </div><div>
+      <div class="bar-label"><strong>Fat</strong><span>66g / 70g</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:94%;background:var(--coral)"></div></div>
+    </div><div>
+      <div class="bar-label"><strong>Fiber</strong><span>33g / 32g</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--amber)"></div></div>
+    </div><div>
+      <div class="bar-label"><strong>Iron</strong><span>12.2mg / 18mg</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:68%;background:var(--violet)"></div></div>
+    </div><div>
+      <div class="bar-label"><strong>Magnesium</strong><span>430mg / 400mg</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green)"></div></div>
+    </div></div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Meal</th>
+                      <th>kcal</th>
+                      <th>P</th>
+                      <th>C</th>
+                      <th>F</th>
+                      <th>Fiber</th>
+                      <th>Iron</th>
+                      <th>Mg</th>
+                    </tr>
+                  </thead>
+                  <tbody id="mealTable"><tr>
+        <td>Protein oats, berries</td>
+        <td>520</td>
+        <td>42g</td>
+        <td>66g</td>
+        <td>12g</td>
+        <td>12g</td>
+        <td>3.1mg</td>
+        <td>115mg</td>
+      </tr><tr>
+        <td>Chicken quinoa bowl</td>
+        <td>690</td>
+        <td>58g</td>
+        <td>72g</td>
+        <td>18g</td>
+        <td>10g</td>
+        <td>4.5mg</td>
+        <td>138mg</td>
+      </tr><tr>
+        <td>Salmon, potatoes, greens</td>
+        <td>720</td>
+        <td>49g</td>
+        <td>68g</td>
+        <td>27g</td>
+        <td>8g</td>
+        <td>3.8mg</td>
+        <td>112mg</td>
+      </tr><tr>
+        <td>Skyr with walnuts</td>
+        <td>250</td>
+        <td>28g</td>
+        <td>18g</td>
+        <td>9g</td>
+        <td>3g</td>
+        <td>0.8mg</td>
+        <td>65mg</td>
+      </tr></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="tracker-panel">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Goal-matched</p>
+                  <h2>Recipes</h2>
+                </div>
+              </div>
+              <div class="recipe-list" id="recipeList"><article class="recipe-card">
+        <strong>Lemon chicken lentil salad</strong>
+        <p>High-protein, high-fiber lunch with iron, folate, potassium, and magnesium.</p>
+        <div class="recipe-tags">
+          <span class="tag">520 kcal - 48P - 46C - 16F</span>
+          <span class="tag">Iron 6.2 mg</span><span class="tag">Magnesium 145 mg</span><span class="tag">Fiber 15 g</span>
+        </div>
+      </article><article class="recipe-card">
+        <strong>Cod, roasted vegetables, yogurt herb sauce</strong>
+        <p>Lean dinner that keeps calories controlled while covering iodine, selenium, and vitamin C.</p>
+        <div class="recipe-tags">
+          <span class="tag">470 kcal - 43P - 38C - 14F</span>
+          <span class="tag">Selenium 58 mcg</span><span class="tag">Vitamin C 82 mg</span><span class="tag">Potassium 980 mg</span>
+        </div>
+      </article></div>
+            </section>
+
+            <section class="tracker-panel span-2">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Nutrient gaps</p>
+                  <h2>Food-first supplement guidance</h2>
+                </div>
+              </div>
+              <div class="supplement-grid" id="supplementGrid"><article class="supplement-card">
+        <strong>Vitamin D</strong>
+        <p>Consider checking blood levels if sun exposure or dietary vitamin D is low. Avoid high-dose use without clinician guidance.</p>
+      </article><article class="supplement-card">
+        <strong>Omega-3</strong>
+        <p>Useful to discuss when fatty fish intake is low. Food options include salmon, sardines, trout, chia, flax, and walnuts.</p>
+      </article></div>
+              <p class="source-note">
+                Supplement notes are educational, not medical advice. Sources:
+                <a href="https://ods.od.nih.gov/factsheets/" target="_blank" rel="noreferrer">NIH ODS</a>,
+                <a href="https://fdc.nal.usda.gov/" target="_blank" rel="noreferrer">USDA FoodData Central</a>.
+              </p>
+            </section>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="training">
+          <div class="training-layout">
+            <section class="tracker-panel">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Workout log</p>
+                  <h2>Strength and cardio progression</h2>
+                </div>
+              </div>
+              <form class="entry-form workout-form" id="workoutForm">
+                <select name="type">
+                  <option value="Strength">Strength</option>
+                  <option value="Cardio">Cardio</option>
+                  <option value="Mobility">Mobility</option>
+                </select>
+                <input name="name" placeholder="Session" required="" value="Lower body strength">
+                <input name="volume" min="0" placeholder="Volume kg" type="number" value="7200">
+                <input name="minutes" min="0" placeholder="Minutes" type="number" value="55">
+                <input name="effort" max="10" min="1" placeholder="RPE" type="number" value="8">
+                <button type="submit">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" aria-hidden="true" class="lucide lucide-plus"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                  <span>Add</span>
+                </button>
+              </form>
+              <div class="workout-list" id="workoutList"><article class="workout-item">
+        <strong>Upper body strength</strong>
+        <p>Strength - 50 min - 6.400 kg volume - RPE 8</p>
+      </article><article class="workout-item">
+        <strong>Zone 2 bike</strong>
+        <p>Cardio - 35 min - RPE 5</p>
+      </article><article class="workout-item">
+        <strong>Lower body strength</strong>
+        <p>Strength - 58 min - 7.600 kg volume - RPE 8</p>
+      </article><article class="workout-item">
+        <strong>Hips and T-spine</strong>
+        <p>Mobility - 22 min - RPE 3</p>
+      </article></div>
+            </section>
+
+            <section class="tracker-panel scene-panel">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">3D form lab</p>
+                  <h2>Exercise technique viewer</h2>
+                </div>
+                <select id="exerciseSelect">
+                  <option value="squat">Squat</option>
+                  <option value="hinge">Hip hinge</option>
+                  <option value="pushup">Push-up</option>
+                </select>
+              </div>
+              <div class="scene-wrap">
+                <canvas id="exerciseCanvas" aria-label="3D exercise form animation" data-engine="three.js r164" width="1" height="1"></canvas>
+                <div class="form-cues" id="formCues"><div class="cue">Tripod foot pressure</div><div class="cue">Knees track over toes</div><div class="cue">Ribs stacked over pelvis</div></div>
+              </div>
+            </section>
+
+            <section class="tracker-panel span-2">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Progression</p>
+                  <h2>Training trend</h2>
+                </div>
+              </div>
+              <div class="chart" id="trainingChart"><div class="chart-bar"><span style="height:84%"></span><small>W1</small></div><div class="chart-bar"><span style="height:46%"></span><small>W2</small></div><div class="chart-bar"><span style="height:100%"></span><small>W3</small></div><div class="chart-bar"><span style="height:29%"></span><small>W4</small></div></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="tab-panel active" id="biomarkers">
+          <div class="dashboard-grid">
+            <section class="tracker-panel span-2">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Connections</p>
+                  <h2>Health app and wearable imports</h2>
+                </div>
+              </div>
+              <div class="connection-grid" id="connectionGrid"><article class="connection-card">
+        <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart-pulse" aria-hidden="true" class="lucide lucide-heart-pulse"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg> Apple Health</strong>
+        <p>Direct live sync needs an iOS companion app with HealthKit permissions. This web version can import an Apple Health `export.xml` file now.</p>
+        <div class="connection-actions">
+          <span class="tag">Not connected</span>
+          <button data-provider="apple" type="button">Import export</button>
+        </div>
+      </article><article class="connection-card">
+        <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="watch" aria-hidden="true" class="lucide lucide-watch"><path d="M12 10v2.2l1.6 1"></path><path d="m16.13 7.66-.81-4.05a2 2 0 0 0-2-1.61h-2.68a2 2 0 0 0-2 1.61l-.78 4.05"></path><path d="m7.88 16.36.8 4a2 2 0 0 0 2 1.61h2.72a2 2 0 0 0 2-1.61l.81-4.05"></path><circle cx="12" cy="12" r="6"></circle></svg> Garmin</strong>
+        <p>Live Garmin sync needs Garmin developer/API approval, a backend callback URL, and OAuth token storage.</p>
+        <div class="connection-actions">
+          <span class="tag">Not connected</span>
+          <button data-provider="garmin" type="button">Setup needed</button>
+        </div>
+      </article><article class="connection-card">
+        <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="smartphone" aria-hidden="true" class="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg> Health Connect</strong>
+        <p>Health Connect data is exposed to Android apps with user-controlled permissions, not directly to a plain website.</p>
+        <div class="connection-actions">
+          <span class="tag">Not connected</span>
+          <button data-provider="healthConnect" type="button">Needs Android app</button>
+        </div>
+      </article><article class="connection-card">
+        <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="activity" aria-hidden="true" class="lucide lucide-activity"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg> Fitbit</strong>
+        <p>Fitbit can use OAuth from a web app, but production sync still needs an app registration and backend token handling.</p>
+        <div class="connection-actions">
+          <span class="tag">Not connected</span>
+          <button data-provider="fitbit" type="button">Setup needed</button>
+        </div>
+      </article></div>
+              <div class="import-panel">
+                <div>
+                  <p class="eyebrow">Apple Health export</p>
+                  <h3>Import real Health data</h3>
+                  <p>
+                    On iPhone, open Health, tap your profile, choose Export All Health Data, unzip the download,
+                    then select the `export.xml` file here. Parsing happens in this browser only.
+                  </p>
+                </div>
+                <label class="file-action">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-up" aria-hidden="true" class="lucide lucide-file-up"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M12 12v6"></path><path d="m15 15-3-3-3 3"></path></svg>
+                  <span>Choose export.xml</span>
+                  <input id="appleHealthFile" accept=".xml,text/xml,application/xml" type="file">
+                </label>
+                <p class="import-status" id="importStatus">No Apple Health export imported yet.</p>
+              </div>
+              <p class="source-note">
+                Production integrations usually need HealthKit/native iOS, Health Connect on Android, or provider OAuth/API approval.
+                Developer references:
+                <a href="https://developer.apple.com/documentation/healthkit" target="_blank" rel="noreferrer">Apple HealthKit</a>,
+                <a href="https://developer.garmin.com/gc-developer-program/health-api/" target="_blank" rel="noreferrer">Garmin Health API</a>,
+                <a href="https://developer.android.com/health-and-fitness/guides/health-connect" target="_blank" rel="noreferrer">Health Connect</a>,
+                <a href="https://dev.fitbit.com/build/reference/web-api/" target="_blank" rel="noreferrer">Fitbit Web API</a>.
+              </p>
+            </section>
+
+            <section class="tracker-panel">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Manual entry</p>
+                  <h2>Body metrics</h2>
+                </div>
+              </div>
+              <form class="body-form" id="bodyForm">
+                <label>
+                  Weight kg
+                  <input name="weight" step="0.1" type="number" value="82">
+                </label>
+                <label>
+                  Waist cm
+                  <input name="waist" step="0.1" type="number" value="86">
+                </label>
+                <label>
+                  Blood pressure
+                  <input name="bp" type="text" value="118/74">
+                </label>
+                <button type="submit">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="save" aria-hidden="true" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></svg>
+                  <span>Save</span>
+                </button>
+              </form>
+            </section>
+
+            <section class="tracker-panel span-2">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Imported biomarkers</p>
+                  <h2>Recovery and activity signals</h2>
+                </div>
+                <button class="secondary-action" id="importWearable" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="download" aria-hidden="true" class="lucide lucide-download"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg>
+                  <span>Import sample</span>
+                </button>
+              </div>
+              <div class="biomarker-grid" id="biomarkerGrid"><article class="biomarker-card">
+        <small>Steps</small>
+        <strong>8420</strong>
+        <p>avg/day - +6% vs last week</p>
+      </article><article class="biomarker-card">
+        <small>Sleep</small>
+        <strong>7h 34m</strong>
+        <p>hours - steady</p>
+      </article><article class="biomarker-card">
+        <small>HRV</small>
+        <strong>64</strong>
+        <p>ms - +4 ms</p>
+      </article><article class="biomarker-card">
+        <small>Resting HR</small>
+        <strong>58</strong>
+        <p>bpm - -2 bpm</p>
+      </article><article class="biomarker-card">
+        <small>VO2 max</small>
+        <strong>47</strong>
+        <p>ml/kg/min - +1</p>
+      </article><article class="biomarker-card">
+        <small>Stress</small>
+        <strong>31</strong>
+        <p>score - moderate</p>
+      </article></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="coach">
+          <div class="dashboard-grid">
+            <section class="summary-band span-2">
+              <div>
+                <p class="eyebrow">Weekly recommendation</p>
+                <h2 id="weeklyHeadline">Add one Zone 2 cardio session</h2>
+                <p id="weeklySummary">115 more weekly minutes would better match the fat loss plan.</p>
+              </div>
+              <button class="primary-action" id="refreshCoach" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="refresh-cw" aria-hidden="true" class="lucide lucide-refresh-cw"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+                <span>Refresh</span>
+              </button>
+            </section>
+
+            <section class="tracker-panel span-2">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Action plan</p>
+                  <h2>Next week</h2>
+                </div>
+              </div>
+              <div class="action-list" id="actionList"><article class="action-item">
+        <span class="action-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bike" aria-hidden="true" class="lucide lucide-bike"><circle cx="18.5" cy="17.5" r="3.5"></circle><circle cx="5.5" cy="17.5" r="3.5"></circle><circle cx="15" cy="5" r="1"></circle><path d="M12 17.5V14l-3-3 4-3 2 3h2"></path></svg></span>
+        <div><strong>Add one Zone 2 cardio session</strong><p>115 more weekly minutes would better match the fat loss plan.</p></div>
+      </article><article class="action-item">
+        <span class="action-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="dumbbell" aria-hidden="true" class="lucide lucide-dumbbell"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"></path><path d="m2.5 21.5 1.4-1.4"></path><path d="m20.1 3.9 1.4-1.4"></path><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"></path><path d="m9.6 14.4 4.8-4.8"></path></svg></span>
+        <div><strong>Add 1 strength session</strong><p>Prioritize compound lifts and keep one to two reps in reserve on most working sets.</p></div>
+      </article></div>
+            </section>
+
+            <section class="tracker-panel">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">Why</p>
+                  <h2>Signals used</h2>
+                </div>
+              </div>
+              <div class="signal-list" id="signalList"><article class="signal-item"><span>Signal</span><strong>2180 kcal logged vs 2300 target</strong></article><article class="signal-item"><span>Signal</span><strong>2/3 strength sessions completed</strong></article><article class="signal-item"><span>Signal</span><strong>35/150 cardio minutes completed</strong></article><article class="signal-item"><span>Signal</span><strong>7h 34m average sleep</strong></article><article class="signal-item"><span>Signal</span><strong>58 bpm resting heart rate</strong></article></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script type="module" src="./app.js"></script>
+  
+
+</body></html>
